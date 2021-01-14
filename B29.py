@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import numpy as np
 
-#x =  np.array([5, 7, 8, 7, 2, 17, 2, 9, 4, 11, 12, 9, 6])
-#y =  np.array([99, 86, 87, 88, 111, 86, 103, 87, 94, 78, 77, 85, 86])
+#x = np.array([5, 7, 8, 7, 2, 17, 2, 9, 4, 11, 12, 9, 6])
+#y = np.array([99, 86, 87, 88, 111, 86, 103, 87, 94, 78, 77, 85, 86])
 
 #x = np.array([2, 3, 5, 7, 9])
 #y = np.array([4, 5, 7, 10, 15])
@@ -23,16 +23,11 @@ sumay = 0
 sumax2 = 0
 sumaxy = 0
 
-def f(a):
-    for i in range(n):
-        format(a[i], '.3f')
-
 def power(x):
     j = 0
     for i in range(n):
         x2[j] = x[i]**2
         j += 1
-    f(x2)
     print("x^2 este egal cu:", x2)
     #print(x2)
 
@@ -40,7 +35,6 @@ power(x)
 
 def prod(x, y):
     j = 0
-
     for i in range(n):
         xy[j] = x[i] * y[i]
         j += 1
@@ -95,16 +89,16 @@ def Intercept(a, be, c, d):
 
 Intercept(sumax, sumay, m, n)
 
-def myfunc(x):
+def ecuatia(x):
     global b
     global m
     return m * x + b
 
-mymodel = list(map(myfunc, x))
+reprezentare = list(map(ecuatia, x))
 
-print(mymodel)
+print("punctele de pe dreapta sunt: ", reprezentare)
 
 plt.scatter(x, y)  #punctele in sistem
-plt.plot(x, mymodel)
+plt.plot(x, reprezentare)
 plt.show()
 
