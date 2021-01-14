@@ -1,15 +1,32 @@
 import matplotlib.pyplot as plt
 from scipy import stats
 import numpy as np
+import array
 
-#x = np.array([5, 7, 8, 7, 2, 17, 2, 9, 4, 11, 12, 9, 6])
-#y = np.array([99, 86, 87, 88, 111, 86, 103, 87, 94, 78, 77, 85, 86])
+font = {'family': 'serif',
+        'color':  'darkred',
+        'weight': 'normal',
+        'size': 16,
+        }
 
-#x = np.array([2, 3, 5, 7, 9])
-#y = np.array([4, 5, 7, 10, 15])
+x = np.array([])
+y = np.array([])
 
-x = np.array([1.21, 3.00, 5.16, 8.31, 10.21])
-y = np.array([1.69, 5.89, 4.11, 5.49, 8.65])
+f = open("file.txt", 'r')
+
+content = f.readline()
+content = content.replace("\n", "")
+content = content.split(' ')
+print(content)
+for nr in content:
+    x = np.append(x, int(nr))
+
+content = f.readline()
+content = content.replace("\n", "")
+content = content.split(' ')
+print(content)
+for nr in content:
+    y = np.append(y, int(nr))
 
 n = len(x)
 x2 = np.array([])
@@ -22,13 +39,34 @@ sumax = 0
 sumay = 0
 sumax2 = 0
 sumaxy = 0
+ymax=0
+xmijloc=0
+
+def maximY(a):
+    #global ymax
+    ym = 0
+    for i in range(n):
+        if y[i] > ym:
+            ym = y[i]
+    return ym
+
+ymax = maximY(y)
+#print(ymax)
+
+x.sort()
+print("x sortat: ", x)
+
 
 def power(x):
+    global xmijloc
     j = 0
     for i in range(n):
         x2[j] = x[i]**2
         j += 1
+    l =int (n / 2)
+    xmijloc = x[l]
     print("x^2 este egal cu:", x2)
+    print(l)
     #print(x2)
 
 power(x)
@@ -64,7 +102,7 @@ def suma(x, y, x2, xy):
 
 #suma(x, y, x2, xy)
 
-def slope(a, b, c, d):
+def slope(a, be, c, d):
     suma(x, y, x2, xy)
     global sumax
     global sumay
@@ -100,5 +138,12 @@ print("punctele de pe dreapta sunt: ", reprezentare)
 
 plt.scatter(x, y)  #punctele in sistem
 plt.plot(x, reprezentare)
+plt.title('Metoda celor mai mici patrate', fontdict=font)
+str = f'y={round(m, 2)}*x+{round(b, 2)}'
+plt.text(xmijloc, ymax-1, f'{str}', fontdict=font)
+plt.xlabel('Axa x', fontdict=font)
+plt.ylabel('Axa y', fontdict=font)
+plt.subplots_adjust(left=0.15)
 plt.show()
+
 
